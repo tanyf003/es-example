@@ -1,0 +1,42 @@
+{
+	"test_aggregation": 
+	{
+		"_all": 
+		{
+			"enabled": false
+		},
+
+		"properties": 
+		{
+			"price": 
+			{
+				"type": "double",
+				"index": "not_analyzed"
+			},
+
+			"grade": 
+			{
+				"type": "integer",
+				"index": "not_analyzed"
+			},
+
+			"id": 
+			{
+				"type": "long",
+				"index": "not_analyzed"
+			},
+
+			"type": 
+			{
+				"type": "keyword",
+				"index": "not_analyzed"
+			},
+
+			"catIds": 
+			{
+				"type": "keyword",
+				"index": "not_analyzed"
+			}
+		}
+	}
+}

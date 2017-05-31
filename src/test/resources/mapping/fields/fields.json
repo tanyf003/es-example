@@ -1,0 +1,31 @@
+{
+	"test_multi_field":
+	{
+		"_all": 
+		{
+			"enabled": false
+		},
+
+		"properties": 
+		{
+			"thumb1": 
+			{
+				"type": "text",
+				"fields": 
+				{
+					"thumb1": 
+					{
+						"type": "keyword",
+						"index": "not_analyzed"
+					},
+
+					"thumb": 
+					{
+						"type": "keyword",
+						"index": "not_analyzed"
+					}
+				}
+			}
+		}
+	}
+}

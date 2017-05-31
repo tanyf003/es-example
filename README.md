@@ -1,9 +1,9 @@
-###ansj 分词器
-####1./_cat/ansj: 执行分词
-####2./_cat/ansj/config: 显示全部配置
-####3./_ansj/flush/config: 刷新全部配置
-####4./_ansj/flush/dic: 更新全部词典。包括用户自定义词典,停用词典,同义词典,歧义词典,crf
-##### 例如：/_ansj/flush/dic?key=synonyms 
+### ansj 分词器
+1. /_cat/ansj: 执行分词
+2. /_cat/ansj/config: 显示全部配置
+3. /_ansj/flush/config: 刷新全部配置
+4. /_ansj/flush/dic: 更新全部词典。包括用户自定义词典,停用词典,同义词典,歧义词典,crf
+(例如：/_ansj/flush/dic?key=synonyms) 
 
 ### 假设已经安装了es 和 kibana，现在安装x-pack
 ```bash

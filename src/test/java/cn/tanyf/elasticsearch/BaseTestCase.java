@@ -45,7 +45,6 @@ public class BaseTestCase {
 				.put("cluster.name", clusterName)
 				.put("xpack.security.transport.ssl.enabled", false)
                 .put("xpack.security.user", "test:test123456")
-//                .put("client.transport.sniff", true)
 				//.put("client.transport.sniff", true)
 				.put("client.transport.ignore_cluster_name", clientIgnoreClusterName)
 				.put("client.transport.ping_timeout", clientPingTimeout)

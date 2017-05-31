@@ -30,4 +30,4 @@ bin/
 .data/
 target/
 /target/
-##logs
+logs

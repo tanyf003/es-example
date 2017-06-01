@@ -17,6 +17,7 @@ import org.elasticsearch.client.AdminClient;
 import org.elasticsearch.client.IndicesAdminClient;
 import org.elasticsearch.client.Requests;
 import org.elasticsearch.common.io.Streams;
+import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -521,7 +522,9 @@ public class FacetQuery extends BaseTestCase {
             adminClientIndices.delete(new DeleteIndexRequest(INDEX_NAME));
         }
         // 预定义一个索引
-        adminClientIndices.prepareCreate(INDEX_NAME).execute().actionGet();
+        adminClientIndices.prepareCreate(INDEX_NAME).setSettings(Settings.builder()
+                .put("index.number_of_shards", 1)
+                .put("index.number_of_replicas", 1)).get();
         InputStream is = Streams.class.getResourceAsStream("/mapping/aggregation/aggregation.json");
         String mapping = Streams.copyToString(new InputStreamReader(is));
         PutMappingRequest mappingRequest = Requests.putMappingRequest(INDEX_NAME).type(TYPE_NAME).source(mapping, XContentFactory.xContentType(mapping));

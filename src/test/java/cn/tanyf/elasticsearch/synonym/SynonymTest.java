@@ -1,7 +1,6 @@
 package cn.tanyf.elasticsearch.synonym;
 
-import java.io.IOException;
-
+import cn.tanyf.elasticsearch.BaseTestCase;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsResponse;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
@@ -13,11 +12,11 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.junit.Test;
 
-import cn.tanyf.elasticsearch.BaseTestCase;
+import java.io.IOException;
 
 public class SynonymTest extends BaseTestCase{
-	private String indexType = "synonym";
-    private String indexName = "synonym";
+	private String indexType = "test_synonym";
+    private String indexName = "test_synonym";
     @Test
     public void testIndex() {
         IndicesExistsResponse indicesExistsResponse = client.admin().indices().prepareExists(indexName).execute()
@@ -55,7 +54,8 @@ public class SynonymTest extends BaseTestCase{
         try {
             XContentBuilder mapping = XContentFactory.jsonBuilder().startObject().startObject(indexType);
             mapping.startObject("properties");
-            mapping.startObject("name").field("type", "string").field("store", "yes").field("indexAnalyzer", "ik")
+            mapping.startObject("name").field("type", "text").field("store", "yes")
+                        .field("analyzer", "index_ansj").field("search_analyzer", "query_ansj")
                     .endObject();
             mapping.endObject().endObject().endObject();
             System.out.println(mapping.string());

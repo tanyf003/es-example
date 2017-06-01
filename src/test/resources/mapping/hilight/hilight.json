@@ -1,0 +1,33 @@
+{
+	"test_hilight":
+	{
+		"_all": 
+		{
+			"enabled": false
+		},
+
+		"properties": 
+		{
+			"title":
+			{
+				"type": "text",
+				"analyzer": "index_ansj",
+				"search_analyzer": "query_ansj",
+				"term_vector": "with_positions_offsets"
+			},
+			"intro":
+			{
+				"type": "text",
+				"analyzer": "index_ansj",
+				"search_analyzer": "query_ansj",
+				"term_vector": "with_positions_offsets"
+			},
+
+			"id":
+			{
+				"type": "long",
+				"index": "not_analyzed"
+			}
+		}
+	}
+}

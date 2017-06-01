@@ -1,9 +1,8 @@
 package cn.tanyf.elasticsearch.index;
 
 
-import java.io.IOException;
-import java.util.Map;
-
+import cn.tanyf.elasticsearch.BaseTestCase;
+import com.alibaba.fastjson.JSON;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsAction;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
@@ -27,9 +26,8 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.junit.Test;
 
-import cn.tanyf.elasticsearch.BaseTestCase;
-
-import com.alibaba.fastjson.JSON;
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * 
@@ -135,8 +133,8 @@ public class CreateIndexTest extends BaseTestCase{
                 .startObject(INDEX_NAME)//{index:{_id:{}}
                     //.startObject("_id").field("path", "id").endObject()  // _id:{path:id}
                     .startObject("_all")
-                    	.field("indexAnalyzer", "ik")
-                    	.field("searchAnalyzer","ik")
+                    	.field("analyzer", "index_ansj")
+                    	.field("search_analyzer","query_ansj")
                     	.field("term_vector","with_positions_offsets")
                     	.field("store",true)
                     	.field("enabled",true)

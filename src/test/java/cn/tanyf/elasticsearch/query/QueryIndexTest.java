@@ -1,14 +1,9 @@
 package cn.tanyf.elasticsearch.query;
 
 
-import static org.elasticsearch.client.Requests.putMappingRequest;
-
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
+import cn.tanyf.elasticsearch.BaseTestCase;
+import cn.tanyf.elasticsearch.domain.FlAsk;
+import com.alibaba.fastjson.JSON;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsAction;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
@@ -27,10 +22,13 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.junit.Test;
 
-import cn.tanyf.elasticsearch.BaseTestCase;
-import cn.tanyf.elasticsearch.domain.FlAsk;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-import com.alibaba.fastjson.JSON;
+import static org.elasticsearch.client.Requests.putMappingRequest;
 
 /**
  * 
@@ -38,9 +36,6 @@ import com.alibaba.fastjson.JSON;
  * @author hg_tyf@163.com
  */
 public class QueryIndexTest extends BaseTestCase{
-    private String INDEX_NAME="goods";
-    private String TYPE_NAME="goods";
-    private String ID="1";
     private String ASK_INDEX_NAME="fl_ask";
     private String ASK_TYPE_NAME="ask";
     private String ASK_ID="1";
@@ -180,19 +175,9 @@ public class QueryIndexTest extends BaseTestCase{
         }
         System.out.println(asks);
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     @Test
     public void putMapping() throws IOException{
-       
         AdminClient adminClient = client.admin();
         IndicesAdminClient adminClientIndices = adminClient.indices();
         IndicesExistsRequest re = new IndicesExistsRequestBuilder(adminClientIndices,IndicesExistsAction.INSTANCE,INDEX_NAME).request();
@@ -214,14 +199,14 @@ public class QueryIndexTest extends BaseTestCase{
                             .endObject()
                             .startObject("title")  
                                 .field("type", "string")             
-                                .field("indexAnalyzer", "mmseg")  
-                                .field("searchAnalyzer", "mmseg")  
+                                .field("analyzer", "index_ansj")
+                                .field("search_analyzer", "query_ansj")
                              .endObject()
                              .startObject("content")  
-                             .field("type", "string")             
-                             .field("indexAnalyzer", "mmseg")  
-                             .field("searchAnalyzer", "mmseg")  
-                             .endObject()
+                             .field("type", "string")
+                            .field("analyzer", "index_ansj")
+                            .field("search_analyzer", "query_ansj")
+                            .endObject()
                    .endObject()  
                 .endObject(); 
         mapping = mapping.endObject();

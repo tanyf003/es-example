@@ -13,7 +13,6 @@ import org.elasticsearch.common.io.Streams;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 /**
@@ -29,18 +28,19 @@ public class FieldsTest extends BaseTestCase{
 	private String INDEX_NAME="test_multi_field";
     private String TYPE_NAME="test_multi_field";
 	@Test
-	public void multiFieldMapping() throws IOException{
+	public void multiFieldMapping() throws Exception{
 		AdminClient adminClient = client.admin();
         IndicesAdminClient adminClientIndices = adminClient.indices();
         IndicesExistsRequest re = new IndicesExistsRequestBuilder(adminClientIndices,IndicesExistsAction.INSTANCE,INDEX_NAME).request();
         boolean flag = adminClientIndices.exists(re).actionGet().isExists();
         if(flag){
-            adminClientIndices.delete(new DeleteIndexRequest(INDEX_NAME));
+            adminClientIndices.delete(new DeleteIndexRequest(INDEX_NAME)).get();
         }
         // 预定义一个索引
-        adminClientIndices.prepareCreate(INDEX_NAME).execute().actionGet();
+        adminClientIndices.prepareCreate(INDEX_NAME).get();
         InputStream is = Streams.class.getResourceAsStream("/mapping/fields/fields.json");
         String mapping = Streams.copyToString(new InputStreamReader(is));
+        System.out.println(mapping);
         PutMappingRequest mappingRequest = Requests.putMappingRequest(INDEX_NAME).type(TYPE_NAME).source(mapping,XContentFactory.xContentType(mapping));
         adminClientIndices.putMapping(mappingRequest).actionGet();
 	}

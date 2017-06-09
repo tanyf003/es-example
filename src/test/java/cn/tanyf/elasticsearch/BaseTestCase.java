@@ -29,7 +29,7 @@ import java.util.Properties;
 
 public class BaseTestCase {
 	protected TransportClient client;
-    private String clusterNodes = "es1.tanyf.cn:9300,es2.tanyf.cn:9300";
+    private String clusterNodes = "es2.tanyf.cn:9300";
 	private String clusterName = "elasticsearch";
 	private Boolean clientIgnoreClusterName = Boolean.FALSE;
 	private String clientPingTimeout = "5s";
@@ -45,7 +45,7 @@ public class BaseTestCase {
 				.put("cluster.name", clusterName)
 				.put("xpack.security.transport.ssl.enabled", false)
                 .put("xpack.security.user", "test:test123456")
-				//.put("client.transport.sniff", true)
+				.put("client.transport.sniff", true)
 				.put("client.transport.ignore_cluster_name", clientIgnoreClusterName)
 				.put("client.transport.ping_timeout", clientPingTimeout)
 				.put("client.transport.nodes_sampler_interval", clientNodesSamplerInterval)

@@ -8,6 +8,7 @@ import org.elasticsearch.action.admin.indices.analyze.AnalyzeResponse.AnalyzeTok
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.IndicesAdminClient;
+import org.elasticsearch.index.query.MultiMatchQueryBuilder.Type;
 import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -66,14 +67,15 @@ public class CountTest extends BaseTestCase {
 //		QueryBuilder qb = QueryBuilders.termQuery("content", "代价");
 		QueryBuilder qb = QueryBuilders.multiMatchQuery(keyword, "content","title")
 									   .minimumShouldMatch("39%")
-									   .operator(Operator.AND)
-									   /*.type(Type.MOST_FIELDS)*/;
+									   .operator(Operator.OR)
+									   .type(Type.BEST_FIELDS)
+									   /*.tieBreaker(0.3f)*/;
 		SearchRequestBuilder req = client.prepareSearch(INDEX_NAME)
 										.setTypes(TYPE_NAME)
 										 .storedFields("content","title")
 									    .setSource(new SearchSourceBuilder().size(10)
 									    .query(qb))
-									    .setMinScore(0.03f)
+//									    .setMinScore(0.03f)
 									    .setExplain(EXPLAIN);
 		System.out.println(" SearchRequestBuilder ===> " + req);
 		SearchResponse response = req.get();

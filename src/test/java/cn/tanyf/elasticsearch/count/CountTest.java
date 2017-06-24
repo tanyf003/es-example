@@ -63,7 +63,7 @@ public class CountTest extends BaseTestCase {
 			System.out.println(token.getPosition() + "," + token.getTerm());
 		}
 		// Operator.AND 表示每个词元都匹配
-		// minimumShouldMatch 匹配百分比,50%  表示词元（同一词重复命中也加一）必须匹配50%以上 即>50%
+		// minimumShouldMatch 匹配百分比,50%  关键词分词后（n 个词 ） n*50% 向下取整数 得 x，必须命中 x 个
 //		QueryBuilder qb = QueryBuilders.termQuery("content", "代价");
 		QueryBuilder qb = QueryBuilders.multiMatchQuery(keyword, "content","title")
 									   .minimumShouldMatch("39%")

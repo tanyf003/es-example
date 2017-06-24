@@ -29,7 +29,7 @@ import java.util.Properties;
 
 public class BaseTestCase {
 	protected TransportClient client;
-    private String clusterNodes = "es2.tanyf.cn:9300";
+    private String clusterNodes = "s100:9300";
 	private String clusterName = "elasticsearch";
 	private Boolean clientIgnoreClusterName = Boolean.FALSE;
 	private String clientPingTimeout = "5s";
@@ -44,7 +44,7 @@ public class BaseTestCase {
 		return Settings.builder()
 				.put("cluster.name", clusterName)
 				.put("xpack.security.transport.ssl.enabled", false)
-                .put("xpack.security.user", "test:test123456")
+                .put("xpack.security.user", "elastic:changeme")
 				.put("client.transport.sniff", true)
 				.put("client.transport.ignore_cluster_name", clientIgnoreClusterName)
 				.put("client.transport.ping_timeout", clientPingTimeout)
@@ -126,7 +126,7 @@ public class BaseTestCase {
     @Test
     public void bulkData() throws Exception{
        BulkRequest bulkRequest = new BulkRequest();
-       for (int i = 1; i <= 100; i++){
+       for (int i = 1; i <= 10000; i++){
     	   bulkRequest.add(new IndexRequest(INDEX_NAME, TYPE_NAME, i + "")
     	   			.source(XContentFactory.jsonBuilder().startObject()
 										                  .field("id",i)

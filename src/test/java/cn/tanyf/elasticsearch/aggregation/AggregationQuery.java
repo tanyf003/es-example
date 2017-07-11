@@ -192,7 +192,7 @@ public class AggregationQuery extends BaseTestCase {
                     System.out.println(t.getKeyAsString() + "\t:\t" + t.getDocCount());
                 }
             } else if (value instanceof InternalTopHits) {
-                SearchHit[] hits = ((InternalTopHits) value).getHits().hits();
+                SearchHit[] hits = ((InternalTopHits) value).getHits().getHits();
                 if (null != hits && hits.length > 0) {
                     for (SearchHit hit : hits) {
                         // hit.getSourceAsString()，json格式 可以通过json工具直接转换为对应
@@ -415,7 +415,7 @@ public class AggregationQuery extends BaseTestCase {
                     System.out.println(t.getKeyAsString() + "\t:\t" + t.getDocCount());
                 }
             } else if (value instanceof InternalTopHits) {
-                SearchHit[] hits = ((InternalTopHits) value).getHits().hits();
+                SearchHit[] hits = ((InternalTopHits) value).getHits().getHits();
                 if (null != hits && hits.length > 0) {
                     for (SearchHit hit : hits) {
                         // hit.getSourceAsString()，json格式 可以通过json工具直接转换为对应
@@ -462,7 +462,7 @@ public class AggregationQuery extends BaseTestCase {
                 long global = ((InternalGlobal) value).getDocCount();
                 System.out.println(key + "  " + global);
             } else if (value instanceof InternalTopHits) {
-                SearchHit[] hits = ((InternalTopHits) value).getHits().hits();
+                SearchHit[] hits = ((InternalTopHits) value).getHits().getHits();
                 if (null != hits && hits.length > 0) {
                     for (SearchHit hit : hits) {
                         // hit.getSourceAsString()，json格式 可以通过json工具直接转换为对应
@@ -531,7 +531,7 @@ public class AggregationQuery extends BaseTestCase {
     public void bulkCreateIndex() {
         BulkRequestBuilder bulkRequest = client.prepareBulk();
         for (int i = 1; i <= 10; i++) {
-            FacetTestModel model = new FacetTestModel();
+            AggregationTestModel model = new AggregationTestModel();
             model.setId(i);
             String json = JSON.toJSONString(model);
             IndexRequestBuilder indexRequest = client.prepareIndex(INDEX_NAME, TYPE_NAME)

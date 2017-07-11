@@ -3,9 +3,9 @@ package cn.tanyf.elasticsearch.delete;
 
 import cn.tanyf.elasticsearch.BaseTestCase;
 import org.elasticsearch.action.ActionListener;
-import org.elasticsearch.action.bulk.byscroll.BulkByScrollResponse;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.reindex.BulkByScrollResponse;
 import org.elasticsearch.index.reindex.DeleteByQueryAction;
 import org.testng.annotations.Test;
 

@@ -11,7 +11,7 @@ import org.elasticsearch.client.IndicesAdminClient;
 import org.elasticsearch.client.Requests;
 import org.elasticsearch.common.io.Streams;
 import org.elasticsearch.common.xcontent.XContentFactory;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -21,8 +21,6 @@ import java.io.InputStreamReader;
  * 
  * @author tan.yf
  * @date 2017年5月27日 上午10:21:26
- * @version 0.1.0 
- * @copyright wonhigh.cn
  */
 public class FieldsTest extends BaseTestCase{
 	private String INDEX_NAME="test_multi_field";

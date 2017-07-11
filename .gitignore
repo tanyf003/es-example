@@ -1,5 +1,6 @@
 ven build output.
 target/
+test-output/
 .factorypath
 # Generated for Eclipse.
 .settings/

@@ -7,12 +7,11 @@ import org.elasticsearch.action.bulk.byscroll.BulkByScrollResponse;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.reindex.DeleteByQueryAction;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 /**
  * 创建索引
  *
- * @author hg_tyf@163.com
  */
 public class DeleteIndexTest extends BaseTestCase {
     private String ID = "1";
@@ -33,6 +32,7 @@ public class DeleteIndexTest extends BaseTestCase {
                 DeleteByQueryAction.INSTANCE.newRequestBuilder(client)
                         .filter(QueryBuilders.matchQuery("id", "16"))
                         .source(INDEX_NAME)
+                        .refresh(true)
                         .get();
 
         // 返回影响行数

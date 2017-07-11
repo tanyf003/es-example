@@ -18,7 +18,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -29,8 +29,7 @@ public class HilightTest extends BaseTestCase
     public static final String TYPE_NAME="test_hilight";
 
     @Test
-    public void testQuery()
-    {
+    public void testQuery(){
        //q为要查询的数据
 //         QueryStringQueryBuilder queryBuilder = new QueryStringQueryBuilder("因为");
         SearchResponse searchResponse = client.prepareSearch(INDEX_NAME,TYPE_NAME)
@@ -47,8 +46,7 @@ public class HilightTest extends BaseTestCase
         System.out.println(responseStr);
         SearchHits hits = searchResponse.getHits();
         System.out.println(hits.getTotalHits());
-        for (SearchHit hit : hits.getHits())
-        {
+        for (SearchHit hit : hits.getHits()){
              String str =
              hit.getHighlightFields().get("intro").fragments()[0].string();
 //            String str = hit.getSource().get("title").toString();
@@ -60,8 +58,7 @@ public class HilightTest extends BaseTestCase
     }
 
     @Test
-    public void addData() throws Exception
-    {
+    public void addData() throws Exception{
 //    	http://localhost:9200/test_hilight/_analyze?analyzer=index_ansj&text=测试elasticsearch分词器
         for (int i = 0; i < 10 ; i++){
             IndexResponse indexResponse = client
@@ -124,4 +121,5 @@ public class HilightTest extends BaseTestCase
         PutMappingRequest mappingRequest = Requests.putMappingRequest(INDEX_NAME).type(TYPE_NAME).source(mapping, XContentFactory.xContentType(mapping));
         adminClientIndices.putMapping(mappingRequest).actionGet();
     }
+
 }

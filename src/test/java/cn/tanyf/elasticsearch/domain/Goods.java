@@ -7,8 +7,6 @@ import java.io.Serializable;
  * 
  * @author tan.yf
  * @date 2017年5月26日 下午4:47:17
- * @version 0.1.0 
- * @copyright wonhigh.cn
  */
 public class Goods implements Serializable {
 	private static final long serialVersionUID = 1L;

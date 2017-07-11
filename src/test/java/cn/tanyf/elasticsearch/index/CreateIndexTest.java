@@ -24,7 +24,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.util.Map;
@@ -37,6 +37,7 @@ public class CreateIndexTest extends BaseTestCase{
     private String INDEX_NAME="test_id";
     private String TYPE_NAME="test_id";
     private String ID="1";
+
     @Test
     public void createIndex() throws Exception{
        IndexResponse indexResponse = client
@@ -46,7 +47,7 @@ public class CreateIndexTest extends BaseTestCase{
                                .field("id",1)
                                .field("title", "宁伤痕为2")
                                .field("name", "kimchy elasticsearch 因为带有以宁伤痕为代价的美丽风景总是让人不由地惴惴不安，在myboy紧接着袭面而来的抑或是病痛抑或是灾难，没有谁会能够安逸着恬然，myboy因为模糊让人撕心裂肺地想呐喊。")
-                               .endObject()).execute().actionGet();
+                               .endObject()).get();
        IndexResponse indexResponse2 = client
                .prepareIndex(INDEX_NAME, TYPE_NAME,"2")
                //创建索引库 需要注意的是.setRefresh(true)这里一定要设置,否则第一次建立索引查找不到数据
@@ -54,8 +55,9 @@ public class CreateIndexTest extends BaseTestCase{
                                .field("id",2)
                                .field("title", "宁伤痕为2")
                                .field("name", "kimchy  因为带有以宁伤痕为代价的美丽风景总是让人不由地惴惴不安，在myboy紧接着袭面而来的抑或是病痛抑或是灾难，没有谁会能够安逸着恬然，myboy因为模糊让人撕心裂肺地想呐喊。")
-                               .endObject()).execute().actionGet();
+                               .endObject()).get();
        System.out.println(indexResponse.getId());
+       System.out.println(indexResponse2.getId());
     }
     
     
@@ -71,7 +73,7 @@ public class CreateIndexTest extends BaseTestCase{
                 .setFrom(0).setExplain(false)
                 .highlighter(new HighlightBuilder().field("title",-1,0));
         System.out.println(addHighlightedField.toString());
-		SearchResponse response = addHighlightedField.execute().actionGet();
+		SearchResponse response = addHighlightedField.get();
         String responseStr = response.toString();
         System.out.println(responseStr);
         SearchHit[] hits = response.getHits().getHits();
@@ -87,9 +89,9 @@ public class CreateIndexTest extends BaseTestCase{
                 if (fields.containsKey("name")) {
                     System.out.println("name:" + fields.get("name"));
                 }
-                System.out.println(hit.highlightFields());
+                System.out.println(hit.getHighlightFields());
                 String str =
-                        hit.highlightFields().get("title").fragments()[0].string();
+                        hit.getHighlightFields().get("title").fragments()[0].string();
 //                       String str = hit.getSource().get("title").toString();
                        System.out.println(str);
             }
@@ -97,8 +99,7 @@ public class CreateIndexTest extends BaseTestCase{
     }
     
     @Test
-    public void getIndex() throws IOException
-    { 
+    public void getIndex() throws IOException{
     	AdminClient adminClient = client.admin();
     	IndicesAdminClient adminClientIndices = adminClient.indices();
     	GetMappingsResponse gmr = new GetMappingsRequestBuilder(adminClientIndices,GetMappingsAction.INSTANCE).get();
@@ -117,7 +118,6 @@ public class CreateIndexTest extends BaseTestCase{
     
     @Test
     public void putMapping() throws IOException{
-       
         AdminClient adminClient = client.admin();
         IndicesAdminClient adminClientIndices = adminClient.indices();
         IndicesExistsRequest re = new IndicesExistsRequestBuilder(adminClientIndices,IndicesExistsAction.INSTANCE,INDEX_NAME).request();

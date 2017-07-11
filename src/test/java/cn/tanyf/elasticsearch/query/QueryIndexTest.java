@@ -20,7 +20,7 @@ import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -40,6 +40,7 @@ public class QueryIndexTest extends BaseTestCase{
     private String ASK_TYPE_NAME="ask";
     private String ASK_ID="1";
     private boolean  EXPLAIN=false; // 类似 sql explain
+
     @Test
     public void queryString() throws Exception {
         // 包含kimchy 不包含elasticsearch
@@ -69,6 +70,7 @@ public class QueryIndexTest extends BaseTestCase{
             }
         }
     }
+
     @Test
     public void prefixQuery() throws Exception {
         QueryBuilder qb = QueryBuilders.prefixQuery("title", "贵州");
@@ -94,6 +96,7 @@ public class QueryIndexTest extends BaseTestCase{
             }
         }
     }
+
     @Test
     public void termsQuery() throws Exception {
         QueryBuilder qb = QueryBuilders.termsQuery("content", "因为");
@@ -118,6 +121,7 @@ public class QueryIndexTest extends BaseTestCase{
             }
         }
     }
+
     @Test
     public void boolQuery() throws Exception {
 //        QueryBuilder qb = QueryBuilders.boolQuery()
@@ -146,11 +150,11 @@ public class QueryIndexTest extends BaseTestCase{
                asks.add(ask);
             }
         }
-         System.out.println(asks);
+        System.out.println(asks);
     }
     
     @Test
-    public void Scroll() throws Exception {
+    public void scroll() throws Exception {
         QueryBuilder qb = QueryBuilders.termQuery("content", "工资");
         
         SearchResponse response = client.prepareSearch(ASK_INDEX_NAME).setTypes(ASK_TYPE_NAME)
@@ -216,8 +220,6 @@ public class QueryIndexTest extends BaseTestCase{
         adminClientIndices.putMapping(mappingRequest).actionGet();
     }
    
-    String TEST_INDEX_NAME="test";
-    String TEST_DOC_TYPE_NAME="test";
     @Test
     public void putMappingJson() throws IOException{
         String mapping = Streams.copyToString(new FileReader("/mapping/test-mapping.json"));

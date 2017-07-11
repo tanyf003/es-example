@@ -19,9 +19,9 @@ import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.xpack.client.PreBuiltXPackTransportClient;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -29,7 +29,7 @@ import java.util.Properties;
 
 public class BaseTestCase {
 	protected TransportClient client;
-    private String clusterNodes = "s100:9300";
+    private String clusterNodes = "s99:9300";
 	private String clusterName = "elasticsearch";
 	private Boolean clientIgnoreClusterName = Boolean.FALSE;
 	private String clientPingTimeout = "5s";
@@ -43,15 +43,15 @@ public class BaseTestCase {
 		}
 		return Settings.builder()
 				.put("cluster.name", clusterName)
-				.put("xpack.security.transport.ssl.enabled", false)
-                .put("xpack.security.user", "elastic:changeme")
+//				.put("xpack.security.transport.ssl.enabled", false)
+//                .put("xpack.security.user", "elastic:changeme")
 				.put("client.transport.sniff", true)
 				.put("client.transport.ignore_cluster_name", clientIgnoreClusterName)
 				.put("client.transport.ping_timeout", clientPingTimeout)
 				.put("client.transport.nodes_sampler_interval", clientNodesSamplerInterval)
 				.build();
 	}
-    @Before
+    @BeforeMethod
     public void setUp() throws Exception {
        client = new PreBuiltXPackTransportClient(settings());
 	   	for (String clusterNode : StringUtils.split(clusterNodes, COMMA)) {
@@ -62,7 +62,7 @@ public class BaseTestCase {
 		}
 	   	client.connectedNodes();
     }
-    @After
+    @AfterMethod
     public void tearDown() {
         client.close();
     }

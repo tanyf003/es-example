@@ -1,39 +1,26 @@
 {
-	"test_aggregation": 
-	{
-		"_all": 
-		{
+	"test_aggregation": {
+		"_all": {
 			"enabled": false
 		},
-
-		"properties": 
-		{
-			"price": 
-			{
+		"properties": {
+			"price": {
 				"type": "double",
 				"index": "not_analyzed"
 			},
-
-			"grade": 
-			{
+			"grade": {
 				"type": "integer",
 				"index": "not_analyzed"
 			},
-
-			"id": 
-			{
+			"id": {
 				"type": "long",
 				"index": "not_analyzed"
 			},
-
-			"type": 
-			{
+			"type": {
 				"type": "keyword",
 				"index": "not_analyzed"
 			},
-
-			"catIds": 
-			{
+			"catIds": {
 				"type": "keyword",
 				"index": "not_analyzed"
 			}

@@ -10,7 +10,7 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import java.io.IOException;
 
@@ -33,7 +33,7 @@ public class SynonymTest extends BaseTestCase{
         bulkRequest.add(client.prepareIndex(indexName, indexType).setSource(createSource("土豆好吃吗")));
         bulkRequest.add(client.prepareIndex(indexName, indexType).setSource(createSource("test bb")));
         bulkRequest.add(client.prepareIndex(indexName, indexType).setSource(createSource("text aa")));
-        BulkResponse bulkResponse = bulkRequest.execute().actionGet();
+        BulkResponse bulkResponse = bulkRequest.get();
         if (bulkResponse.hasFailures()) {
             System.out.println("create index fail:" + bulkResponse.buildFailureMessage());
         }

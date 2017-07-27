@@ -43,8 +43,8 @@ public class BaseTestCase {
 		}
 		return Settings.builder()
 				.put("cluster.name", clusterName)
-//				.put("xpack.security.transport.ssl.enabled", false)
-//                .put("xpack.security.user", "elastic:changeme")
+				.put("xpack.security.transport.ssl.enabled", false)
+                .put("xpack.security.user", "elastic:changeme")
 				.put("client.transport.sniff", true)
 				.put("client.transport.ignore_cluster_name", clientIgnoreClusterName)
 				.put("client.transport.ping_timeout", clientPingTimeout)
@@ -101,8 +101,8 @@ public class BaseTestCase {
 	                             .field("analyzer", "index_ansj")  
 	                             .field("search_analyzer", "query_ansj")  
                              .endObject()
-                   .endObject()  
-                .endObject(); 
+                   .endObject()
+                .endObject();
         mapping = mapping.endObject();
         System.out.println(mapping.string());
         PutMappingRequest mappingRequest = Requests.putMappingRequest(INDEX_NAME).type(TYPE_NAME).source(mapping);

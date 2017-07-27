@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 
 /**
  * 创建索引
- *
  */
 public class DeleteIndexTest extends BaseTestCase {
     private String ID = "1";

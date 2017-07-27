@@ -16,6 +16,6 @@ public class NewTest {
     @Test(invocationCount = 100, threadPoolSize = 30)
     public void f() throws InterruptedException {
         System.out.println("hello testNG" + i++);
-        Thread.sleep(9999999999999L);
+//        Thread.sleep(9999999999999L);
     }
 }

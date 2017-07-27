@@ -33,12 +33,13 @@ public class CountTest extends BaseTestCase {
      */
     @Test
     public void count() {
-        String keyword = "代价伤痕2";
+        String keyword = "代价伤痕2a";
+//        String keyword = "a";
 //        keyword = QueryParser.escape(keyword);
         IndicesAdminClient indicesAdminClient = client.admin().indices();
         AnalyzeRequestBuilder request = new AnalyzeRequestBuilder(indicesAdminClient,
                 AnalyzeAction.INSTANCE, INDEX_NAME, keyword);
-        request.setAnalyzer("query_ansj");
+        request.setAnalyzer("index_ansj");
 //         request.setTokenizer("index_ansj");
         // Analyzer（分析器）、Tokenizer（分词器）
         List<AnalyzeToken> listAnalysis = request.get().getTokens();
@@ -49,11 +50,12 @@ public class CountTest extends BaseTestCase {
         // minimumShouldMatch 匹配百分比,50% 关键词分词后（n 个词 ） n*50% 向下取整数 得 x，必须命中 x 个
         // QueryBuilder qb = QueryBuilders.termQuery("content", "代价");
         QueryBuilder qb = QueryBuilders.multiMatchQuery(keyword, "content", "title")
-                .minimumShouldMatch("39%").operator(Operator.OR).type(Type.BEST_FIELDS)
+                /*.minimumShouldMatch("39%")*/.operator(Operator.OR).type(Type.BEST_FIELDS)
         /* .tieBreaker(0.3f) */;
         SearchRequestBuilder req = client.prepareSearch(INDEX_NAME).setTypes(TYPE_NAME)
                 .storedFields("content", "title")
-                .setSource(new SearchSourceBuilder().size(10).query(qb))
+                // size 设置 为 0 就是 返回 response.getHits().getTotalHits() == count数
+                .setSource(new SearchSourceBuilder().size(5).query(qb))
                 // .setMinScore(0.03f)
                 .setExplain(EXPLAIN);
         System.out.println(" SearchRequestBuilder ===> " + req);
